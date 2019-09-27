@@ -21,41 +21,73 @@
     //创建数据
     // node id 主键id，category 类别分类，name 名称，lable tooltip显示的文字，symbolSize 节点大小 越大显示越大
     // links source 起始节点id，target 目的节点id，lable tooltip显示连接关系的文字
-    $.get('/data/mongo.json', function (webkitDep) {
-        var width = $("#container").width();
-        var height = $("#container").height();
-        for(var i in webkitDep.nodes){
-            var level = webkitDep.nodes[i].level;
-            if(level == 0){
-                webkitDep.nodes[i].x = width/2;
-                webkitDep.nodes[i].y = height/2;
-                webkitDep.nodes[i].fixed =true;
-            }else{
-                webkitDep.nodes[i].x = Math.random()*width;
-                webkitDep.nodes[i].y = Math.random()*height;
-            }
-            //设置symbolSize
-            switch(level) {
-                case 0:
-                    webkitDep.nodes[i].symbolSize = 30;
-                    break;
-                case 1:
-                    webkitDep.nodes[i].symbolSize = 20;
-                    break;
-                case 2:
-                    webkitDep.nodes[i].symbolSize = 15;
-                    break;
-                case 3:
-                    webkitDep.nodes[i].symbolSize = 10;
-                    break;
-                default:
-                    webkitDep.nodes[i].symbolSize = 10;
-                    break;
-            }
+    // $.get('/data/mongo.json', function (webkitDep) {
+    //     var width = $("#container").width();
+    //     var height = $("#container").height();
+    //     for(var i in webkitDep.nodes){
+    //         var level = webkitDep.nodes[i].level;
+    //         if(level == 0){
+    //             webkitDep.nodes[i].x = width/2;
+    //             webkitDep.nodes[i].y = height/2;
+    //             webkitDep.nodes[i].fixed =true;
+    //         }else{
+    //             webkitDep.nodes[i].x = Math.random()*width;
+    //             webkitDep.nodes[i].y = Math.random()*height;
+    //         }
+    //         //设置symbolSize
+    //         switch(level) {
+    //             case 0:
+    //                 webkitDep.nodes[i].symbolSize = 30;
+    //                 break;
+    //             case 1:
+    //                 webkitDep.nodes[i].symbolSize = 20;
+    //                 break;
+    //             case 2:
+    //                 webkitDep.nodes[i].symbolSize = 15;
+    //                 break;
+    //             case 3:
+    //                 webkitDep.nodes[i].symbolSize = 10;
+    //                 break;
+    //             default:
+    //                 webkitDep.nodes[i].symbolSize = 10;
+    //                 break;
+    //         }
+    //     }
+    //     jsondata={"categories":webkitDep.categories,"nodes":webkitDep.nodes,"links":webkitDep.links}
+    //     createGraph(myChart,jsondata);
+    // });
+
+    jsondata = ${dataJson};
+    var width = $("#container").width();
+    var height = $("#container").height();
+    for(var i in jsondata.nodes){
+        var level = jsondata.nodes[i].level;
+        if(level == 0){
+            jsondata.nodes[i].fixed =true;
         }
-        jsondata={"categories":webkitDep.categories,"nodes":webkitDep.nodes,"links":webkitDep.links}
-        createGraph(myChart,jsondata);
-    });
+        jsondata.nodes[i].x = Math.random()*width;
+        jsondata.nodes[i].y = Math.random()*height;
+
+        //设置symbolSize
+        switch(level) {
+            case 0:
+                jsondata.nodes[i].symbolSize = 30;
+                break;
+            case 1:
+                jsondata.nodes[i].symbolSize = 20;
+                break;
+            case 2:
+                jsondata.nodes[i].symbolSize = 15;
+                break;
+            case 3:
+                jsondata.nodes[i].symbolSize = 10;
+                break;
+            default:
+                jsondata.nodes[i].symbolSize = 10;
+                break;
+        }
+    }
+    createGraph(myChart,jsondata);
 </script>
 </body>
 </html>
