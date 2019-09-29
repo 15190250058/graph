@@ -32,7 +32,6 @@ public class GraphController {
     @RequestMapping("/index")
     public String index(Model model){
         //jsonString数据
-
         try {
             model.addAttribute("dataJson",findAll().toJSONString());
         } catch (IOException e) {
